@@ -87,6 +87,28 @@ void matrix_dot_matrix(int m, int n, int p, double A[][DIM], double B[][DIM], do
 				C[i][j] += A[i][r]*B[r][j];
 	return;
 }
+
+
+/*
+  risolve il sistema A·x=b dove,
+        -n è l'ordine della matrice
+        -A è una matrice triangolare superiore nxn di rango massimo
+        -b è il vettore dei termini noti
+        -xi è il vettore in cui viene inserita la soluzione del sistema
+*/
+void upper_solver(int n, double A[][DIM], double b[DIM], double xi[DIM]){
+    double r;
+    for (int i= n-1; i>=0; i--){
+        r = 0;
+        for (int j= i+1; j<n; j++){
+            r += A[i][j]*xi[j];
+        }
+        xi[i] = (b[i]- r)/A[i][i];        
+    }
+    return;
+}
+
+
 int main(){
 	int n;
 	int m;
